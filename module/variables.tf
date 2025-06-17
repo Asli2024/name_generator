@@ -13,12 +13,6 @@ variable "resource" {
   type        = string
 }
 
-variable "add_random" {
-  description = "Whether to add random suffix"
-  type        = bool
-  default     = true
-}
-
 variable "random_length" {
   description = "Length of random suffix"
   type        = number

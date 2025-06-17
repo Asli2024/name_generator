@@ -27,7 +27,7 @@ This Terraform module generates standardized names for AWS resources using a com
 | `prefix`          | Project prefix for the resource name         | `string` | n/a     | yes      |
 | `environment`     | Environment name (e.g., dev, prod)           | `string` | n/a     | yes      |
 | `resource`        | Resource type (e.g., server, database)       | `string` | n/a     | yes      |
-| `random_length`   | Length of the random suffix                  | `number` | `8`     | no       |
+| `random_length`   | Length of the random suffix                  | `number` | `6`     | no       |
 | `add_random`      | Whether to include a random suffix           | `bool`   | `true`  | no       |
 
 ## Outputs

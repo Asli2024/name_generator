@@ -10,8 +10,8 @@ data "aws_ami" "latest" {
 
 module "s3_name_generator" {
   source      = "../"
-  prefix      = "myproject"
-  environment = "dev"
+  prefix      = var.prefix
+  environment = var.environment
   resource    = "s3"
 }
 
@@ -21,39 +21,16 @@ resource "aws_s3_bucket" "test_backet" {
 
 module "ec2_name_generator" {
   source      = "../"
-  prefix      = "myproject"
-  environment = "dev"
+  prefix      = var.prefix
+  environment = var.environment
   resource    = "ec2"
 
 }
 
 resource "aws_instance" "test_instance" {
   ami           = data.aws_ami.latest.id
-  instance_type = "t2.micro"
+  instance_type = var.instance_type
   tags = {
     Name = module.ec2_name_generator.name
   }
-}
-
-module "iam_name_generator" {
-  source      = "../"
-  prefix      = "myproject"
-  environment = "dev"
-  resource    = "iam"
-}
-
-resource "aws_iam_role" "test_role" {
-  name = module.iam_name_generator.name
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      }
-    ]
-  })
 }
